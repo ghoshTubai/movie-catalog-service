@@ -41,7 +41,7 @@ public class MovieCatalogResource {
         converter.setSupportedMediaTypes(Collections.singletonList(MediaType.ALL));
         messageConverters.add(converter);
         restTemplate.setMessageConverters(messageConverters);
-        return restTemplate.getForObject("http://ratings-movie-service/rating/"+userId, UserRatingData.class);
+        return restTemplate.getForObject("http://rating-service/rating/"+userId, UserRatingData.class);
     }
     @GetMapping("/{userId}")
     public List<CatalogService> getCatalogByUser(@PathVariable final String userId){
@@ -51,7 +51,7 @@ public class MovieCatalogResource {
         converter.setSupportedMediaTypes(Collections.singletonList(MediaType.ALL));
         messageConverters.add(converter);
         restTemplate.setMessageConverters(messageConverters);
-        UserRatingData userRatingData= restTemplate.getForObject("http://ratings-movie-service/rating/"+userId, UserRatingData.class);
+        UserRatingData userRatingData= restTemplate.getForObject("http://rating-service/rating/"+userId, UserRatingData.class);
         // call Movie info service to get Movie Details
         if (userRatingData!=null && userRatingData.getRating()!=null && userRatingData.getRating().size()!=0){
             return userRatingData.getRating().stream()
